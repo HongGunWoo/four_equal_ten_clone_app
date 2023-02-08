@@ -42,6 +42,8 @@ const FormulaBox = styled.li`
 
 	&.over {
 		/* 드래그 요소가 다른 요소에 겹친 경우 */
+
+		/* 피연산자인 경우 */
 		${props => 
 			props.grab &&
 			Number.isInteger(parseInt(props.grab.textContent)) &&
@@ -50,6 +52,8 @@ const FormulaBox = styled.li`
 				animation-name: ${sizeUp};
 			`
 		}
+
+		/* 사칙 연산자인 경우 */
 		${props => 
 			props.grab &&
 			['+', '-', '*', '/'].includes(props.grab.textContent) &&
@@ -88,10 +92,9 @@ const FormulaBox = styled.li`
 		}
 	}
 
-
 	${props => 
 		// 피연산자와 연산자가 존재하는 칸만 크기 설정
-		props.children &&
+		props.children !== null &&
 		css`
 			width: 50px;
 		`
