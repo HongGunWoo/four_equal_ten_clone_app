@@ -10,10 +10,17 @@ const IconWrapper = styled.div`
 	padding: 30px;
 `
 
-const IconBox = styled.div`
-	font-size: 30px;
+const IconBox = styled.button`
+	font-size: 50px;
 	align-self: center;
-	cursor: pointer;
+	
+	&:hover{
+		font-size: 53px;
+	}
+	&:active{
+		font-size: 45px;
+	}
+	transition: all 100ms;
 `
 
 const GameButtonBar = ({formulaList, setFormulaList, clear, setClear, stage}) => {

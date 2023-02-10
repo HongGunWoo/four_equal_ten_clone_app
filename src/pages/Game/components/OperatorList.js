@@ -6,13 +6,21 @@ const OperatorWrapper = styled.ul`
 `;
 
 const OperatorBox = styled.li`
+	text-align: center;
+	font-size: 1em;
+	/* margin: 0 3px; */
+	height: 50px;
+	width: 50px;
+	line-height: 47px;
 	&:hover{
 		opacity: 0.5;
 		cursor: pointer;
+		font-size: 1.1em;
+		transition: font-size 100ms;
 	};
 	opacity: ${props => props.draggable ? 1 : 0.5};
 	:not(:last-child) {
-		margin-right: 50px;
+		margin-right: 25px;
 	}
 	&.grabbing{
 		opacity: 0.5;

@@ -6,6 +6,11 @@ const GlobalStyle = createGlobalStyle`
 	*, *::before, *::after {
 		box-sizing: border-box;
 	}
+	button{
+		border: 0;
+		background-color: transparent;
+		cursor: pointer;
+	}
 `;
 
 export default GlobalStyle;

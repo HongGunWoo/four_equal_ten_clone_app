@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import Game from "./pages/Game";
-import GameStage from "./pages/GameStage";
+import Game from "./pages/Game/Game";
+import GameStage from "./pages/GameStage/GameStage";
 import GlobalStyle from "./styles/global";
+import Home from "./pages/Home/Home";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"
 
@@ -23,7 +24,7 @@ function App() {
 		<>
 			<GlobalStyle />
 			<Routes>
-				<Route path="/" element={<Game />} />
+				<Route index path="/" element={<Home />} />
 				<Route path="/stages" element={<GameStage database={db}/>} />
 				<Route path="/stages/:stage" element={<Game database={db}/>} />
 			</Routes>

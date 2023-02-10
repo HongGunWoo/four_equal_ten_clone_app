@@ -13,86 +13,61 @@ const sizeUp = keyframes`
 		width: 55px
 	} */
 	0% {width: 50px}
-	10% {width: 54px}
-	20% {width: 58px}
+	15% {width: 52px}
 	30% {width: 54px}
-	40% {width: 50px}
-	50% {width: 46px}
-	60% {width: 50px}
-	70% {width: 52px}
-	80% {width: 55px}
-	90% {width: 50px}
+	45% {width: 56px}
+	60% {width: 54px}
+	75% {width: 56px}
 	100% {width: 55px}
 `
 
 const FormulaBox = styled.li`
 	text-align: center;
+	margin: 0px 3px;
 	border: 1px solid black;
 	height: 50px;
+	font-size: 1em;
+	line-height: 47px;
 
 	animation-duration: 250ms;
 	animation-timing-function: ease-out;
 	animation-fill-mode: forwards;
-	animation-delay: 10ms;
+	animation-delay: 50ms;
 
 	&:hover{
 		opacity: 0.5;
 		cursor: pointer;
+		font-size: 1.1em;
+		transition: font-size 100ms;
 	};
 
 	&.over {
 		/* 드래그 요소가 다른 요소에 겹친 경우 */
 
 		/* 피연산자인 경우 */
-		${props => 
-			props.grab &&
-			Number.isInteger(parseInt(props.grab.textContent)) &&
-			Number.isInteger(parseInt(props.children)) &&
-			css`
+		${props =>
+		props.grab &&
+		Number.isInteger(parseInt(props.grab.textContent)) &&
+		Number.isInteger(parseInt(props.children)) &&
+		css`
 				animation-name: ${sizeUp};
 			`
-		}
+	}
 
 		/* 사칙 연산자인 경우 */
-		${props => 
-			props.grab &&
-			['+', '-', '*', '/'].includes(props.grab.textContent) &&
-			[2, 6, 10].includes(props['data-position']) &&
-			css`
-				animation-name: ${sizeUp};
-			`
-		}
-	}
-
 		${props =>
-		{
-			if(
-					props.grab &&
-					props.grab.textContent === '(' &&
-					[0, 3, 7].includes(props['data-position']) &&
-					props['data-position'] < (props.RBposition === -1 ? 999 : props.RBposition) - 4 &&
-					props.RBposition - props['data-position'] !== 12
-				) {
-					return css`
-						animation-name: ${sizeUp};
-					`
-			}
-
-			if(
-					props.grab &&
-					props.grab.textContent === ')' &&
-					[5, 9, 12].includes(props['data-position']) &&
-					props['data-position'] >= (props.LBposition === -1 ? -999 : props.LBposition) + 4 &&
-					props.LBposition - props['data-position'] !== -12
-			) {
-				return css`
+		props.grab &&
+		['+', '-', '*', '/'].includes(props.grab.textContent) &&
+		[2, 6, 10].includes(props['data-position']) &&
+		css`
 					animation-name: ${sizeUp};
 				`
-			}
-		}
+	}
 	}
 
-	${props => 
+	
+
+	${props =>
 		// 피연산자와 연산자가 존재하는 칸만 크기 설정
 		props.children !== null &&
 		css`
@@ -101,7 +76,7 @@ const FormulaBox = styled.li`
 	};
 
 	${props =>
-		// 사칙 연산자를 드래그하는 경우 사칙 연잔자 칸 크기 설정
+		// 사칙 연산자를 드래그하는 경우 사칙 연잔자 칸 크기 및 배경 설정
 		!props.children &&
 		props.grab &&
 		['+', '-', '*', '/'].includes(props.grab.textContent) &&
@@ -110,17 +85,6 @@ const FormulaBox = styled.li`
 			animation-name: ${sizeUp};
 		`
 	}
-
-	${props =>
-		// 사칙 연산자를 드래그하는 경우 배경색 변경
-		props.grab &&
-		['+', '-', '*', '/'].includes(props.grab.textContent) &&
-		['+', '-', '*', '/'].includes(props.children) &&
-		parseInt(props.grab.dataset.position) !== parseInt(props['data-position']) &&
-		css`
-			background-color: #ebebeb;
-		`
-	};
 
 	${props =>
 		// 피연산자를 드래그하는 경우
@@ -132,12 +96,42 @@ const FormulaBox = styled.li`
 			background-color: #ebebeb;
 		`
 	};
+
+	/* 괄호를 드래그하는 경우 */
+	${props => {
+		if (
+			props.grab &&
+			props.grab.textContent === '(' &&
+			[0, 3, 7].includes(props['data-position']) &&
+			props['data-position'] < (props.RBposition === -1 ? 999 : props.RBposition) - 4 &&
+			props.RBposition - props['data-position'] !== 12
+		) {
+			return css`
+						animation-name: ${sizeUp};
+						background-color: #ebebeb;
+					`
+		}
+
+		if (
+			props.grab &&
+			props.grab.textContent === ')' &&
+			[5, 9, 12].includes(props['data-position']) &&
+			props['data-position'] >= (props.LBposition === -1 ? -999 : props.LBposition) + 4 &&
+			props.LBposition - props['data-position'] !== -12
+		) {
+			return css`
+					animation-name: ${sizeUp};
+					background-color: #ebebeb;
+				`
+		}
+	}
+	}
 `;
 
 const FormulaList = ({ grab, setGrab, formulaList, setFormulaList }) => {
 	const [delOper, setDelOper] = useState(false);
 
-	if(!formulaList) return;
+	if (!formulaList) return;
 
 	const dragStartHandler = e => {
 		//빈 요소(null)일 경우 방지
@@ -168,12 +162,12 @@ const FormulaList = ({ grab, setGrab, formulaList, setFormulaList }) => {
 
 		// 사칙 연산자인 경우 조건
 		if (['+', '-', '*', '/'].includes(grab.textContent)) {
-			if(![2, 6, 10].includes(targetPosition)) return;
+			if (![2, 6, 10].includes(targetPosition)) return;
 		}
 
 		// 숫자일 경우 조건
-		if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0].includes(Number.parseInt(grab.textContent))){
-			if(![1, 4, 8, 11].includes(targetPosition)) return;
+		if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0].includes(Number.parseInt(grab.textContent))) {
+			if (![1, 4, 8, 11].includes(targetPosition)) return;
 		}
 
 		// 왼쪽 괄호일 경우 조건
@@ -195,10 +189,10 @@ const FormulaList = ({ grab, setGrab, formulaList, setFormulaList }) => {
 		}
 
 		let _list = [...formulaList];
-		if(grab.dataset.type === "formula"){
+		if (grab.dataset.type === "formula") {
 			[_list[grabPosition], _list[targetPosition]] = [_list[targetPosition], _list[grabPosition]];
 		}
-		else{
+		else {
 			_list[targetPosition] = grab.textContent;
 		}
 		setFormulaList(_list);

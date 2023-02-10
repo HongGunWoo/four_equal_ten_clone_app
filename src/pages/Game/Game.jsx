@@ -11,8 +11,8 @@ import { doc, getDoc } from "firebase/firestore"
 const Wrapper = styled.div`
 	display: flex;
 	min-height: 100vh;
-	justify-content: space-between;
-	padding-bottom: 300px;
+	justify-content: space-evenly;
+	/* padding-bottom: 300px; */
 	align-items: center;
 	flex-direction: column;
 	-webkit-user-select:none;
