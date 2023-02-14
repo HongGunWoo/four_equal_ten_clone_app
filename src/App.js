@@ -3,21 +3,6 @@ import Game from "./pages/Game/Game";
 import GameStage from "./pages/GameStage/GameStage";
 import GlobalStyle from "./styles/global";
 import Home from "./pages/Home/Home";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"
-
-const firebaseConfig = {
-	apiKey: "AIzaSyB1XDWPwO7YjDkM4kSO5T8XhzGpoUmjxrI",
-	authDomain: "four-equal-ten-clone-17f63.firebaseapp.com",
-	projectId: "four-equal-ten-clone-17f63",
-	storageBucket: "four-equal-ten-clone-17f63.appspot.com",
-	messagingSenderId: "883069760524",
-	appId: "1:883069760524:web:38e0f0621d873a6581aa29",
-	measurementId: "G-48BW37JG1S"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 function App() {
 	return (
@@ -25,8 +10,8 @@ function App() {
 			<GlobalStyle />
 			<Routes>
 				<Route index path="/" element={<Home />} />
-				<Route path="/stages" element={<GameStage database={db}/>} />
-				<Route path="/stages/:stage" element={<Game database={db}/>} />
+				<Route path="/stages" element={<GameStage />} />
+				<Route path="/stages/:stage" element={<Game />} />
 			</Routes>
 		</>
 	);

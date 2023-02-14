@@ -13,32 +13,48 @@ const sizeUp = keyframes`
 		width: 55px
 	} */
 	0% {width: 50px}
-	15% {width: 52px}
-	30% {width: 54px}
-	45% {width: 56px}
-	60% {width: 54px}
-	75% {width: 56px}
+	25% {width: 53px}
+  50% {width: 55px}
+  75% {width: 53px}
 	100% {width: 55px}
+`
+
+const sizeDown = keyframes`
+  0% {width: 55px}
+	25% {width: 53px}
+  50% {width: 51px}
+  75% {width: 52px}
+	100% {width: 50px}
+`
+
+const activeBox = keyframes`
+  from{
+    width: 50px;
+  }
+  to{
+    width: 50px;
+  }
 `
 
 const FormulaBox = styled.li`
 	text-align: center;
-	margin: 0px 3px;
-	border: 1px solid black;
+	margin: 0px 2px;
+	/* border: 1px solid black; */
 	height: 50px;
 	font-size: 1em;
 	line-height: 47px;
+  transition: width 200ms;
 
-	animation-duration: 250ms;
-	animation-timing-function: ease-out;
+	animation-duration: 100ms;
+	animation-timing-function: linear;
 	animation-fill-mode: forwards;
-	animation-delay: 50ms;
+	
 
 	&:hover{
 		opacity: 0.5;
 		cursor: pointer;
 		font-size: 1.1em;
-		transition: font-size 100ms;
+    transition: font-size width 200ms;
 	};
 
 	&.over {
@@ -50,7 +66,8 @@ const FormulaBox = styled.li`
 		Number.isInteger(parseInt(props.grab.textContent)) &&
 		Number.isInteger(parseInt(props.children)) &&
 		css`
-				animation-name: ${sizeUp};
+      
+        width: 55px;
 			`
 	}
 
@@ -60,7 +77,7 @@ const FormulaBox = styled.li`
 		['+', '-', '*', '/'].includes(props.grab.textContent) &&
 		[2, 6, 10].includes(props['data-position']) &&
 		css`
-					animation-name: ${sizeUp};
+      animation-name: ${sizeUp};
 				`
 	}
 	}
@@ -71,7 +88,7 @@ const FormulaBox = styled.li`
 		// 피연산자와 연산자가 존재하는 칸만 크기 설정
 		props.children !== null &&
 		css`
-			width: 50px;
+      width: 50px;
 		`
 	};
 
@@ -82,7 +99,12 @@ const FormulaBox = styled.li`
 		['+', '-', '*', '/'].includes(props.grab.textContent) &&
 		[2, 6, 10].includes(props['data-position']) &&
 		css`
-			animation-name: ${sizeUp};
+    /* width: 30px; */
+    /* animation-delay: 10ms;
+    animation-name: ${activeBox};
+    background-color: #ebebeb; */
+    transition: padding 100ms 0ms;
+    padding: 0 20px;
 		`
 	}
 
@@ -107,7 +129,7 @@ const FormulaBox = styled.li`
 			props.RBposition - props['data-position'] !== 12
 		) {
 			return css`
-						animation-name: ${sizeUp};
+            width: 50px;
 						background-color: #ebebeb;
 					`
 		}
@@ -120,7 +142,7 @@ const FormulaBox = styled.li`
 			props.LBposition - props['data-position'] !== -12
 		) {
 			return css`
-					animation-name: ${sizeUp};
+          width: 50px;
 					background-color: #ebebeb;
 				`
 		}

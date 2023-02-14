@@ -7,6 +7,7 @@ import OperatorList from './components/OperatorList';
 import Result from './components/Result';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc } from "firebase/firestore"
+import { db } from '../../firebase';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -22,7 +23,7 @@ const Wrapper = styled.div`
 	font-size: 50px;
 `;
 
-const Game = ({database}) => {
+const Game = () => {
 	const { stage } = useParams();
 	const [originList, setOriginList] = useState(null);
 	const [formulaList, setFormulaList] = useState(null);
@@ -30,7 +31,7 @@ const Game = ({database}) => {
 	const [clear, setClear] = useState(false);
 
 	async function getDB() {
-		const querySnapshot = await getDoc(doc(database, "stage", stage));
+		const querySnapshot = await getDoc(doc(db, "stage", stage));
 		console.log(querySnapshot.data());
 		console.log(querySnapshot.data().question[1]);
 		let _formula = [null, null, null, null, null, null, null, null, null, null, null, null, null];
