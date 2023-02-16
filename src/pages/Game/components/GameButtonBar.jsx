@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 const IconWrapper = styled.div`
 	width: 100%;
+  height: 70px;
 	display: flex;
 	justify-content: space-between;
-	padding: 30px;
+	padding: 10px;
 `
 
 const IconBox = styled.button`
