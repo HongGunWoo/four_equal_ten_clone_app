@@ -42,7 +42,7 @@ const FormulaBox = styled.li`
 	height: 50px;
   width: 0px;
 	font-size: 1em;
-	line-height: 47px;
+	line-height: 60px;
   transition: width 200ms;
 
 	animation-duration: 100ms;
