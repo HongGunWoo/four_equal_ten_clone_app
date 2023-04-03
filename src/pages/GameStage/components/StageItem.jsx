@@ -8,6 +8,7 @@ const ItemButton = styled.li`
 	height: 90px;
 	text-align: center;
 	line-height: 90px;
+	background: #ebebeb;
 	&:hover{
 		cursor: pointer;
 	}
