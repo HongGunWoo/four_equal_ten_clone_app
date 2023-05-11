@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Banner from './components/Banner';
 import LoginBar from './components/LoginBar';
+import StageButton from './components/StageButton';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -13,9 +14,9 @@ const Home = () => {
 	return (
 		<Wrapper>
 			<Banner />
+			<StageButton />
 			<LoginBar />
 		</Wrapper>
-		
 	);
 };
 

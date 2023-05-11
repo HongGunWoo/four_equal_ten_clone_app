@@ -12,7 +12,7 @@ const ItemButton = styled.li`
 	&:hover{
 		cursor: pointer;
 	}
-`
+`;
 
 const StageItem = ({stage}) => {
 	const navigate = useNavigate();
